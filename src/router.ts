@@ -8,5 +8,5 @@ export const router: Router = Router();
 
 router.post("/todos", createTodo);
 router.get('/todos', listTodos);
-router.put('/todos/:id', updateTodo);
+router.patch('/todos/:id', updateTodo);
 router.delete('/todos/:id', removeTodo);

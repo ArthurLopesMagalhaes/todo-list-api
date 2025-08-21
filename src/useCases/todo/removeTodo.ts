@@ -1,9 +1,14 @@
 import type { Request, Response } from "express";
 import { Todo } from "../../models/Todo";
+import { removeTodoSchema } from "../../schemas/removeTodo";
 
 export async function removeTodo(req: Request, res: Response) {
   try {
-    const { id } = req.params;
+    const parseResult = removeTodoSchema.safeParse(req.params);
+    if (!parseResult.success) {
+      return res.status(400).json({ errors: parseResult.error.issues });
+    }
+    const { id } = parseResult.data;
 
     const todo = await Todo.findByIdAndDelete(id);
 
